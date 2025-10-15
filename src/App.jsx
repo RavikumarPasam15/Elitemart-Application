@@ -1,93 +1,51 @@
-import React from "react";
+import React, { useRef } from "react";
+import Header from "./components/common/home/Header";
+import Footer from "./components/common/footer/Footer";
+import AboutUs from "./components/common/home/AboutUs";
+import DownloadApp from "./components/common/home/Download";
+import Helpdesk from "./components/common/home/HelpDesk";
+import Offers from "./components/common/home/Offers";
+import Reviews from "./components/common/home/Reviews";
 
-function App() {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Form submitted successfully!");
+const App = () => {
+  const aboutRef = useRef(null);
+  const offersRef = useRef(null);
+  const reviewsRef = useRef(null);
+  const helpdeskRef = useRef(null);
+  const downloadRef = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
+  const refs = { aboutRef, offersRef, reviewsRef, helpdeskRef, downloadRef };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md"
-      >
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Registration Form
-        </h2>
+    <div className="min-h-screen flex flex-col bg-gradient-to-r from-orange-50 via-white to-orange-100">
+      {/* Header */}
+      <Header scrollToSection={scrollToSection} refs={refs} />
 
-        {/* Full Name */}
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Full Name
-          </label>
-          <input
-            type="text"
-            placeholder="Enter your full name"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Email */}
-        <div className="mb-4">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Password */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Password
-          </label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        {/* Gender */}
-        <div className="mb-6">
-          <label className="block text-gray-700 font-semibold mb-2">
-            Gender
-          </label>
-          <div className="flex items-center gap-4">
-            <label className="flex items-center gap-2">
-              <input type="radio" name="gender" className="text-blue-600" /> Male
-            </label>
-            <label className="flex items-center gap-2">
-              <input type="radio" name="gender" className="text-blue-600" /> Female
-            </label>
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-300"
-        >
-          Submit
-        </button>
-
-        {/* Footer note */}
-        <p className="text-center text-gray-500 text-sm mt-4">
-          Already registered?{" "}
-          <a href="#" className="text-blue-600 hover:underline">
-            Login here
-          </a>
-        </p>
-      </form>
+      {/* Spacer for fixed header */}
+      <div className="pt-28 flex-1 overflow-y-auto scroll-smooth">
+        <section ref={aboutRef} className="my-8">
+          <AboutUs />
+        </section>
+        <section ref={offersRef} className="my-8">
+          <Offers />
+        </section>
+        <section ref={reviewsRef} className="my-8">
+          <Reviews />
+        </section>
+        <section ref={helpdeskRef} className="my-8">
+          <Helpdesk />
+        </section>
+        <section ref={downloadRef} className="my-8">
+          <DownloadApp />
+        </section>
+        <Footer />
+      </div>
     </div>
   );
-}
+};
 
 export default App;
